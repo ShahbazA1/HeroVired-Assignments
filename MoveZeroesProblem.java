@@ -16,7 +16,7 @@ public class MoveZeros {
             }
         }
 
-        // Task 6: Fill the remaining elements from the non-zero pointer to the end of the array with zeros
+        // Task 5: Fill the remaining elements from the non-zero pointer to the end of the array with zeros
         for (int i = nonZeroPointer; i < nums.length; i++) {
             nums[i] = 0;
         }
@@ -29,7 +29,7 @@ public class MoveZeros {
         System.out.println("Original Array: " + Arrays.toString(nums));
         solution.moveZeros(nums);
 
-        // Task 7: Print the Modified Array
+        // Task 6: Print the Modified Array
         System.out.println("Modified Array: " + Arrays.toString(nums));
     }
 }

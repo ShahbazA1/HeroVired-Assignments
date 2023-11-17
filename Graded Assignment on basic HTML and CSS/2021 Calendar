@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calendar</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e1ecc1;
+        color: #468d22;
+      }
+
+      .calendar {
+        display: flex;
+        width: 90rem;
+      }
+
+      .c-wrap {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 1.5em;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      th, td {
+        padding: 1px 10px;
+        text-align: center;
+      }
+
+      h5 {
+        margin: 0;
+      }
+
+      .year {
+        margin-top: 3rem;
+        font-size: 2.3rem;
+        transform: rotate(-90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calendar">
+      <div class="c-wrap"></div>
+      <div class="year">2021</div>
+    </div>
+
+    <script>
+      const months = [
+        { name: "JANUARY", days: 31 },
+        { name: "FEBRUARY", days: 28 },
+        { name: "MARCH", days: 31 },
+        { name: "APRIL", days: 30 },
+        { name: "MAY", days: 31 },
+        { name: "JUNE", days: 30 },
+        { name: "JULY", days: 31 },
+        { name: "AUGUST", days: 31 },
+        { name: "SEPTEMBER", days: 30 },
+        { name: "OCTOBER", days: 31 },
+        { name: "NOVEMBER", days: 30 },
+        { name: "DECEMBER", days: 31 },
+      ];
+
+      const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
+
+      function createCalendar(month) {
+        const a = document.createElement("a");
+        a.href = `/${month.name.toLowerCase()}.html`;
+
+        const div = document.createElement("div");
+        div.classList.add("month");
+
+        const h5 = document.createElement("h5");
+        h5.textContent = month.name;
+
+        const hr1 = document.createElement("hr");
+
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+
+        daysOfWeek.forEach((day) => {
+          const th = document.createElement("th");
+          th.textContent = day;
+          thead.appendChild(th);
+        });
+
+        const tbody = document.createElement("tbody");
+        let startDate = 1;
+        const lastDate = month.days;
+
+        while (startDate <= lastDate) {
+          const tr = document.createElement("tr");
+
+          for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+            const td = document.createElement("td");
+            if (dayOfWeek < startDay) {
+              td.style.visibility = "hidden";
+            } else {
+              td.textContent = startDate;
+              startDate++;
+            }
+            tr.appendChild(td);
+            if (startDate > lastDate) break;
+          }
+
+          tbody.appendChild(tr);
+        }
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+
+        div.appendChild(h5);
+        div.appendChild(hr1);
+        div.appendChild(table);
+
+        a.appendChild(div);
+        const cWrapDiv = document.querySelector(".c-wrap");
+        cWrapDiv.appendChild(a);
+      }
+
+      let startDay = 5;
+
+      months.forEach(createCalendar);
+
+      const yearDiv = document.querySelector(".year");
+      yearDiv.textContent = "2021";
+    </script>
+  </body>
+</html>
 # assignmentofdatastructure

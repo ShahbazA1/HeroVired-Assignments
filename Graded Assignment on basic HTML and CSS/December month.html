@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+      body {
+        height: 150vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e1ecc1;
+        color: #468d22;
+      }
+
+      .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr) 20rem;
+        grid-template-rows: repeat(6, 1fr) 10rem;
+        gap: 1rem;
+        max-width: 80rem;
+        padding: 1rem;
+        background-color: inherit;
+      }
+
+      .table-data {
+        grid-column: span 7;
+        padding: 2rem;
+      }
+
+      th,
+      td {
+        padding: 1.5rem;
+        text-align: center;
+        color: #468d22; /* Adjusted to use the specified text color */
+      }
+
+      .month-name {
+        grid-column: 8;
+        grid-row: span 6;
+        display: flex;
+        align-items: flex-end;
+        font-size: 2rem;
+        writing-mode: vertical-lr;
+      }
+
+      hr {
+        border-bottom: 2px solid #468d22; /* Adjusted to use the specified text color */
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="calendar">
+      <div class="table-data"></div>
+
+      <div class="month-name"><p id="vertical-string"></p></div>
+
+      <hr>
+
+      <h2>Notes</h2>
+    </div>
+
+    <script>
+      const mnts = { name: "DECEMBER", ds: 31, laggOf: 3, monthShort: "DEC" };
+      const days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+
+      const tableData = document.querySelector(".table-data");
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      // Header row
+      const theadRow = document.createElement("tr");
+      days.forEach((day) => {
+        const th = document.createElement("th");
+        th.textContent = day;
+        theadRow.appendChild(th);
+      });
+      thead.appendChild(theadRow);
+
+      // Calendar body
+      let startDate = 1;
+      for (let row = 0; row < 6; row++) {
+        const tr = document.createElement("tr");
+        for (let col = 0; col < 7; col++) {
+          const td = document.createElement("td");
+          if (row === 0 && col < mnts.laggOf) {
+            // Empty cells before the start date
+            td.textContent = "";
+          } else if (startDate <= mnts.ds) {
+            td.textContent = startDate;
+            startDate++;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      tableData.appendChild(table);
+
+      const verticalString = document.getElementById("vertical-string");
+      verticalString.textContent = mnts.monthShort;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar</title>
+  <style>
+    body {
+      height: 150vh;
+      margin: 0; /* Reset default margin */
+    }
+
+    :root {
+      --body-color: #e1ecc1;
+      --text-color: #468d22;
+    }
+
+    h1, h2 {
+      color: var(--text-color);
+    }
+
+    .calendar {
+      margin-top: 3rem;
+      background-color: var(--body-color);
+      padding: 1rem;
+      height: 50rem;
+      width: 80rem;
+      display: grid;
+      grid-template-columns: 60rem 20rem;
+      grid-template-rows: 40rem 10rem;
+    }
+
+    .table-data {
+      padding: 2rem;
+      overflow: auto; /* Add overflow to handle content overflow */
+    }
+
+    th, td {
+      color: var(--text-color);
+      padding: 25px;
+      text-align: center;
+    }
+
+    .month-name {
+      color: var(--text-color);
+      font-size: 2rem; /* Adjusted font size for better visibility */
+    }
+
+    #vertical-string {
+      writing-mode: vertical-rl; /* Use writing-mode for vertical text */
+      font-size: 1.5rem; /* Adjusted font size for better visibility */
+      margin-left: 1rem; /* Add margin for spacing */
+    }
+
+    hr {
+      border-bottom: 2px solid var(--text-color);
+      margin: 1rem 0; /* Add margin for spacing */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calendar">
+    <div class="table-data"></div>
+
+    <div class="month-name">
+      <p id="vertical-string"></p>
+    </div>
+
+    <div>
+      <hr>
+      <h2>Notes</h2>
+    </div>
+  </div>
+
+  <script>
+    const monthData = { name: "MARCH", days: 31, startDay: 1, monthShort: "MAR" };
+
+    const daysOfWeek = [
+      "SUNDAY",
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY",
+      "SATURDAY",
+    ];
+
+    const container = document.querySelector(".table-data");
+
+    const header = document.createElement("h1");
+    header.textContent = monthData.name;
+
+    const table = document.createElement("table");
+
+    const thead = document.createElement("thead");
+    const theadRow = document.createElement("tr");
+
+    daysOfWeek.forEach((day) => {
+      const th = document.createElement("th");
+      th.textContent = day;
+      theadRow.appendChild(th);
+    });
+
+    thead.appendChild(theadRow);
+
+    const tbody = document.createElement("tbody");
+
+    let currentDate = 1;
+    const lastDate = monthData.days;
+
+    while (currentDate <= lastDate) {
+      const tr = document.createElement("tr");
+
+      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+        const td = document.createElement("td");
+
+        if (currentDate <= lastDate) {
+          td.textContent = currentDate;
+          currentDate++;
+        }
+
+        tr.appendChild(td);
+      }
+
+      tbody.appendChild(tr);
+    }
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    container.appendChild(header);
+    container.appendChild(table);
+
+    const verticalString = document.getElementById("vertical-string");
+    verticalString.textContent = monthData.monthShort;
+  </script>
+</body>
+</html>

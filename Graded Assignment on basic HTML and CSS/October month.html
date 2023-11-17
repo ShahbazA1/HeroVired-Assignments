@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e1ecc1;
+        color: #468d22;
+      }
+
+      .calendar {
+        background-color: #e1ecc1;
+        padding: 1rem;
+        width: 80vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 15px;
+        border: 1px solid #468d22;
+      }
+
+      .month-name {
+        font-size: 2rem;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+
+      h2 {
+        border-bottom: 2px solid #468d22;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="calendar">
+      <div>
+        <h1>OCTOBER</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>SUNDAY</th>
+              <th>MONDAY</th>
+              <th>TUESDAY</th>
+              <th>WEDNESDAY</th>
+              <th>THURSDAY</th>
+              <th>FRIDAY</th>
+              <th>SATURDAY</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populate the table with JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="month-name">OCT</div>
+
+      <div>
+        <hr>
+        <h2>Notes</h2>
+      </div>
+    </div>
+
+    <script>
+      const monthData = { name: "OCTOBER", days: 31, startDay: 5, shortName: "OCT" };
+
+      const daysOfWeek = [
+        "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"
+      ];
+
+      const tableBody = document.querySelector('tbody');
+
+      let startDate = 1;
+      const endDate = monthData.days;
+
+      for (let row = 0; startDate <= endDate; row++) {
+        const tr = document.createElement('tr');
+
+        for (let col = 0; col < 7; col++) {
+          const td = document.createElement('td');
+          if (row === 0 && col < monthData.startDay) {
+            // Add empty cells for the previous month
+            td.textContent = '';
+          } else {
+            td.textContent = startDate++;
+          }
+          tr.appendChild(td);
+        }
+
+        tableBody.appendChild(tr);
+      }
+
+      const monthName = document.querySelector('.month-name');
+      monthName.textContent = monthData.shortName;
+    </script>
+  </body>
+</html>

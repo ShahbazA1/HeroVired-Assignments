@@ -1,0 +1,14 @@
+4.1 Advanced Database Operations Implement advanced database operations as follows:  Retrieving all blog posts by a specific user:
+List<BlogPost> findAllByAuthor(User author);
+
+Counting the number of comments on each blog post:
+@Query("SELECT p, COUNT(c) FROM BlogPost p LEFT JOIN p.comments c GROUP BY p")
+List<Object[]> findPostsWithCommentCount();
+
+Fetching the most popular tags (tags used in the most blog posts):
+@Query("SELECT t, COUNT(bp) FROM Tag t JOIN t.blogPosts bp GROUP BY t ORDER BY COUNT(bp) DESC")
+List<Object[]> findPopularTags();
+
+Implementing a search functionality for blog posts based on title, content, and tags:
+@Query("SELECT p FROM BlogPost p WHERE LOWER(p.title) LIKE %:keyword% OR LOWER(p.content) LIKE %:keyword% OR :tag IN elements(p.tags)")
+List<BlogPost> search(@Param("keyword") String keyword, @Param("tag") Tag tag);

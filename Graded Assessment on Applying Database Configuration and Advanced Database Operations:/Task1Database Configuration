@@ -1,0 +1,15 @@
+1.1 Configure Database Connection To connect the Spring Boot application to MySQL or PostgreSQL database, need to specify the database properties in the application.properties or application.yml file. For instance, in application.myap:
+
+spring.datasource.url=jdbc:mysql://localhost:3306/yourdb
+spring.datasource.username=yourusername
+spring.datasource.password=yourpassword
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+
+
+
+1.2 Implement Custom Database Connection Pool Configuration Optimizing connection management will be done by configuring a custom connection pool, like HikariCP. Add the HikariCP dependency and customize the configuration in your application.properties or application.myap:
+
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.idle-timeout=30000
+spring.datasource.hikari.pool-name=yourConnectionPoolName

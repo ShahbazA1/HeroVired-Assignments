@@ -1,0 +1,11 @@
+- src
+  - main
+    - java
+      - com.example.blog
+        - controller
+        - model
+        - repository
+        - service
+        - BlogApplication.java
+    - resources
+      - application.properties

@@ -1,0 +1,35 @@
+2.1 Entity Relationships User, Blog Post, Comment, and Tag entities with appropriate relationships using annotations like @OneToMany, @ManyToOne, and @ManyToMany.
+
+@Entity
+public class User {
+    @OneToMany(mappedBy = "author")
+    private List<BlogPost> blogPosts;
+}
+
+@Entity
+public class BlogPost {
+    @ManyToOne
+    private User author;
+    @ManyToMany
+    private List<Tag> tags;
+}
+
+@Entity
+public class Comment {
+    @ManyToOne
+    private BlogPost post;
+}
+@Entity
+public class Tag {
+    @ManyToMany(mappedBy = "tags")
+    private List<BlogPost> blogPosts;
+};
+
+
+
+2.2 Spring Data JPA Repositories Create Spring Data JPA repositories for each entity to enable CRUD operations and complex queries. You can define a repository interface for each entity, and Spring Data JPA will provide basic CRUD methods.
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+}
+

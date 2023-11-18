@@ -1,0 +1,76 @@
+3.1 Database Migration Tool 
+Create a migration script for defining the schema (e.g., V1__create_tables.sql):
+
+-- src/main/resources/db/migration/V1__create_tables.sql
+
+-- Create the User table
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    -- Add other user fields here
+);
+
+-- Create the BlogPost table
+CREATE TABLE blog_post (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES user(id),
+    -- Add other blog post fields here
+);
+
+-- Create the Comment table
+CREATE TABLE comment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    text TEXT NOT NULL,
+    blog_post_id INT,
+    FOREIGN KEY (blog_post_id) REFERENCES blog_post(id),
+    -- Add other comment fields here
+);
+
+-- Create the Tag table
+CREATE TABLE tag (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    -- Add other tag fields here
+);
+
+-- Create a join table for the Many-to-Many relationship between BlogPost and Tag
+CREATE TABLE blog_post_tags (
+    blog_post_id INT,
+    tag_id INT,
+    FOREIGN KEY (blog_post_id) REFERENCES blog_post(id),
+    FOREIGN KEY (tag_id) REFERENCES tag(id)
+);
+
+
+
+3.2 Create a migration script for initial data (e.g., V2__insert_initial_data.sql):
+
+-- src/main/resources/db/migration/V2__insert_initial_data.sql
+
+-- Insert sample user data
+INSERT INTO user (username, ...) VALUES
+('user1', ...),
+('user2', ...);
+
+-- Insert sample blog posts
+INSERT INTO blog_post (title, content, author_id) VALUES
+('Post 1', 'Content 1', 1),
+('Post 2', 'Content 2', 2);
+
+-- Insert sample comments
+INSERT INTO comment (text, blog_post_id) VALUES
+('Comment 1', 1),
+('Comment 2', 1);
+
+-- Insert sample tags
+INSERT INTO tag (name) VALUES
+('Tag1'),
+('Tag2');
+
+-- Associate tags with blog posts
+INSERT INTO blog_post_tags (blog_post_id, tag_id) VALUES
+(1, 1),
+(1, 2);

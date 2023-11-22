@@ -11,36 +11,55 @@ const board = [
 ];
 
 function isValidSudoku(board) {
-  for (let i = 0; i < 9; i++) {
-    const row = new Set();
-    const col = new Set();
+  // Check each row for valid numbers
+  for (let row = 0; row < 9; row++) {
+    const rowSet = new Set();
 
-    for (let j = 0; j < 9; j++) {
-      const num = board[i][j];
+    for (let col = 0; col < 9; col++) {
+      const num = board[row][col];
+
       if (num !== ".") {
-        if (row.has(num) || col.has(num)) {
+        if (rowSet.has(num)) {
           return false;
         }
 
-        row.add(num);
-        col.add(num);
+        rowSet.add(num);
       }
     }
   }
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      const subBox = new Set();
+  // Check each column for valid numbers
+  for (let col = 0; col < 9; col++) {
+    const colSet = new Set();
 
-      for (let k = 3 * i; k < 3 * i + 3; k++) {
-        for (let l = 3 * j; l < 3 * j + 3; l++) {
-          const num = board[k][l];
+    for (let row = 0; row < 9; row++) {
+      const num = board[row][col];
+
+      if (num !== ".") {
+        if (colSet.has(num)) {
+          return false;
+        }
+
+        colSet.add(num);
+      }
+    }
+  }
+
+  // Check each 3x3 sub-box for valid numbers
+  for (let subBoxRow = 0; subBoxRow < 3; subBoxRow++) {
+    for (let subBoxCol = 0; subBoxCol < 3; subBoxCol++) {
+      const subBoxSet = new Set();
+
+      for (let row = 3 * subBoxRow; row < 3 * subBoxRow + 3; row++) {
+        for (let col = 3 * subBoxCol; col < 3 * subBoxCol + 3; col++) {
+          const num = board[row][col];
+
           if (num !== ".") {
-            if (subBox.has(num)) {
+            if (subBoxSet.has(num)) {
               return false;
             }
 
-            subBox.add(num);
+            subBoxSet.add(num);
           }
         }
       }
@@ -50,5 +69,5 @@ function isValidSudoku(board) {
   return true;
 }
 
-const valid = isValidSudoku(board);
-console.log(valid);
+const isValid = isValidSudoku(board);
+console.log(isValid);
